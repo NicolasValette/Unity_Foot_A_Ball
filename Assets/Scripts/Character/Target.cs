@@ -1,0 +1,42 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class Target : MonoBehaviour
+{
+    [SerializeField]
+    private TeamData _team;
+
+    public static event Action<Team, Team> TargetCollected;
+
+    private void Start()
+    {
+        Material teamMat = _team.TeamMaterial;
+        GetComponent<MeshRenderer>().material = teamMat;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Boum");
+        Ball ball = other.gameObject.GetComponent<Ball>();
+        if (ball != null)
+        {
+            //UpdateScore();
+            TargetCollected?.Invoke(ball.CurrentTeam, _team.CurrentTeam);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Ball ball = collision.gameObject.GetComponent<Ball>();
+        if (ball != null)
+        {
+            //UpdateScore();
+            TargetCollected?.Invoke(ball.CurrentTeam, _team.CurrentTeam);
+            Destroy(gameObject);
+        }
+    }
+}
