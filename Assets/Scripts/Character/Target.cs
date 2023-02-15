@@ -18,7 +18,6 @@ public class Target : MonoBehaviour
         Ball ball = other.gameObject.GetComponent<Ball>();
         if (ball != null)
         {
-            //UpdateScore();
             TargetCollected?.Invoke(ball.CurrentTeam, _team.CurrentTeam);
             Destroy(gameObject);
         }
@@ -30,7 +29,6 @@ public class Target : MonoBehaviour
         Ball ball = collision.gameObject.GetComponent<Ball>();
         if (ball != null)
         {
-            //UpdateScore();
             TargetCollected?.Invoke(ball.CurrentTeam, _team.CurrentTeam);
             Destroy(gameObject);
         }
