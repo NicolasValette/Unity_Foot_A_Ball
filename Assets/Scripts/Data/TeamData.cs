@@ -14,8 +14,11 @@ public class TeamData : ScriptableObject
     private Team _team;
     [SerializeField]
     private Material _teamMaterial;
+    [SerializeField]
+    private GameObject _teamMemberPrefab;
 
     public Material TeamMaterial { get => _teamMaterial; }
     public Team CurrentTeam { get => _team; }
+    public GameObject TeamMemberPrefab { get { return _teamMemberPrefab; } }
     
 }

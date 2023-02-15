@@ -7,16 +7,11 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     [SerializeField]
-    private TeamData _team;
+    protected TeamData _team;
 
     public static event Action<Team, Team> TargetCollected;
 
-    private void Start()
-    {
-        Material teamMat = _team.TeamMaterial;
-        GetComponent<MeshRenderer>().material = teamMat;
-    }
-
+   
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Boum");
@@ -31,6 +26,7 @@ public class Target : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Bim");
         Ball ball = collision.gameObject.GetComponent<Ball>();
         if (ball != null)
         {

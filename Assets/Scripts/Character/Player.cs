@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using UnityEngine.InputSystem;
+using Newtonsoft.Json.Linq;
 
 public class Player : Ball
 {
@@ -15,17 +18,23 @@ public class Player : Ball
     private ScenarioData _scenario;
     [SerializeField] 
     private GameObject _wallPrefab;
+
+    private Vector2 _inputDirection;
+
+    PlayerInput p;
     void Start()
     {
-
         InitJersey();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if(Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) 
-        {
-            _rigidbody.AddForce(Input.GetAxis("Horizontal") * _characterData.Speed * Time.deltaTime, 0f, Input.GetAxis("Vertical") * _characterData.Speed * Time.deltaTime);
-        }
+        Vector3 dir = new Vector3(_inputDirection.x, 0f, _inputDirection.y);
+        _rigidbody.AddForce(dir * _characterData.Speed * Time.fixedDeltaTime);
+    }
+
+    public void OnMove(InputValue value)
+    {
+        _inputDirection = value.Get<Vector2>();
     }
 }
