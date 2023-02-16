@@ -9,8 +9,8 @@ public class Opponent : Ball
     private bool _newTargetAvailable;
     private Vector3 direction;
     private GameObject targetToTrack = null;
-   // private Dictionary<PlayerData.Behavior, Action> _moveMethod = new Dictionary<PlayerData.Behavior, Action>();
-    private Action[] _moveMethod ;
+    // private Dictionary<PlayerData.Behavior, Action> _moveMethod = new Dictionary<PlayerData.Behavior, Action>();
+    private Action[] _moveMethod;
     void Start()
     {
         _moveMethod = new Action[4];
@@ -52,8 +52,8 @@ public class Opponent : Ball
             direction.Normalize();
             Debug.Log(direction);
             _isChoosing = true;
-            StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _isChoosing = false)) ;
-        } 
+            StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _isChoosing = false));
+        }
         _rigidbody.AddForce(_characterData.Speed * Time.deltaTime * direction);
     }
     #endregion
@@ -65,8 +65,8 @@ public class Opponent : Ball
         {
             direction = MatchManager.Player.transform.position - transform.position;
             direction.Normalize();
-           // Debug.Log(direction);
-            
+            // Debug.Log(direction);
+
             _isChoosing = true;
             StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _isChoosing = false));
         }
@@ -83,18 +83,16 @@ public class Opponent : Ball
     }
     private void ChooseTarget()
     {
-       
-            Debug.Log("ChooseTarget");
-            targetToTrack = GetComponentInParent<TeamComposition>()?.GetMember();
-            if (targetToTrack != null)
-            {
-                targetToTrack.GetComponent<TeamMember>().IsTargeted = true;
-            }   
+        Debug.Log("ChooseTarget");
+        targetToTrack = GetComponentInParent<TeamComposition>()?.GetMember();
+        if (targetToTrack != null)
+        {
+            targetToTrack.GetComponent<TeamMember>().IsTargeted = true;
+        }
     }
     public void ToTarget()
     {
         Debug.Log("ToTarget : " + _newTargetAvailable);
-
         if (targetToTrack == null && _newTargetAvailable)
         {
             _newTargetAvailable = false;

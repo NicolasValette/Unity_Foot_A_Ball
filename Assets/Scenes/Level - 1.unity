@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: {fileID: 11400000, guid: 20c66d7e330633847b449f87fc685aea, type: 2}
-  _characterData: {fileID: 11400000, guid: 13f12dc029a91ec4191ab26f71925211, type: 2}
+  _characterData: {fileID: 11400000, guid: 43f6f64f92a55d0488cd687f8a389ba7, type: 2}
 --- !u!1 &624843368 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 607843740659601084, guid: bfeb41ea61d0b7e46b98520d3b8675ca, type: 3}
@@ -2221,7 +2221,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 150, y: 200}
+  m_AnchoredPosition: {x: 300, y: 300}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.49999994, y: 0.5}
 --- !u!114 &1628508522
