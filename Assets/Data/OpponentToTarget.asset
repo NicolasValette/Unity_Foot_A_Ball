@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9723cb6369fae724ea0b75eb23c13b55, type: 3}
-  m_Name: Team 2
+  m_Script: {fileID: 11500000, guid: fbf00c50465fc634f883f6a45d40d0fc, type: 3}
+  m_Name: OpponentToTarget
   m_EditorClassIdentifier: 
-  _team: 1
-  _teamMaterial: {fileID: 2100000, guid: cbf14f173d5ca61418d36cf5b99d80a1, type: 2}
-  _teamMemberPrefab: {fileID: 0}
-  _numberOfPlayer: 8
+  _behavior: 3
+  _speed: 200

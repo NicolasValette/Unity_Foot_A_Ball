@@ -11,18 +11,22 @@ public class Opponent : Ball
     private bool _isChoosing = false;
 
     private Vector3 direction;
-    private Dictionary<PlayerData.Behavior, Action> _moveMethod = new Dictionary<PlayerData.Behavior, Action>();
+    private GameObject targetToTrack;
+   // private Dictionary<PlayerData.Behavior, Action> _moveMethod = new Dictionary<PlayerData.Behavior, Action>();
+    private Action[] _moveMethod ;
     void Start()
     {
-        _moveMethod.Add(PlayerData.Behavior.Random, RandomMove);
-        _moveMethod.Add(PlayerData.Behavior.ToPlayer, ToPlayer);
+        _moveMethod = new Action[4];
+        _moveMethod[(int)PlayerData.Behavior.Random] = RandomMove;
+        _moveMethod[(int)PlayerData.Behavior.ToPlayer] = ToPlayer;
+        _moveMethod[(int)PlayerData.Behavior.ToTarget] = ToTarget;
         InitJersey();
     }
 
     // Update is called once per frame
     void Update()
     {
-        _moveMethod[_characterData.PlayerBehavior]();
+        _moveMethod[(int)_characterData.PlayerBehavior]();
     }
     public IEnumerator WaitBeforeNewForce()
     {
@@ -50,7 +54,6 @@ public class Opponent : Ball
 
     public void ToPlayer()
     {
-        Debug.Log("ToPlayer");
         if (!_isChoosing)
         {
             direction = MatchManager.Player.transform.position - transform.position;
@@ -61,5 +64,17 @@ public class Opponent : Ball
             StartCoroutine(WaitBeforeNewForce());
         }
         _rigidbody.AddForce(_characterData.Speed * Time.deltaTime * direction);
+    }
+
+    private void ChooseTarget()
+    {
+        targetToTrack = GetComponentInParent<TeamComposition>()?.GetMember();
+    }
+    public void ToTarget()
+    {
+        
+        direction = targetToTrack.transform.position - transform.position;
+        _isChoosing = true;
+        StartCoroutine(WaitBeforeNewForce());
     }
 }

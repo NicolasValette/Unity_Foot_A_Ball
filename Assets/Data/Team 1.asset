@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _team: 0
   _teamMaterial: {fileID: 2100000, guid: ee97b4b9455eabc4285dccc4db70dd47, type: 2}
+  _teamMemberPrefab: {fileID: 0}
+  _numberOfPlayer: 8

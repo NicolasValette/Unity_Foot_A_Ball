@@ -9,7 +9,8 @@ public class PlayerData : ScriptableObject
     {
         Human,
         Random,
-        ToPlayer
+        ToPlayer,
+        ToTarget
     }
 
     

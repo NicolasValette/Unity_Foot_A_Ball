@@ -40,9 +40,9 @@ public class ScoreManager : MonoBehaviour
     {
         
     }
-    public void UpdateScore(Team team, Team targetTeam)
+    public void UpdateScore(Team team, GameObject member)
     {
-        if (team == targetTeam)
+        if (team == member.GetComponent<Target>().ActualTeam)
         {
             _scores[((int)team)]--;
         }
@@ -56,9 +56,6 @@ public class ScoreManager : MonoBehaviour
 
         PlayerPrefs.SetInt("Team1", _scores[(int)Team.Team1]);
         PlayerPrefs.SetInt("Team2", _scores[(int)Team.Team2]);
-        if (_scores[((int)team)] == 8)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+       
     }
 }

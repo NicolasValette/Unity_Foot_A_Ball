@@ -6,19 +6,20 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    [SerializeField]
-    protected TeamData _team;
 
-    public static event Action<Team, Team> TargetCollected;
+    public TeamData _team;
 
-   
+    public static event Action<Team, GameObject> TargetCollected;
+    public Team ActualTeam { get => _team.CurrentTeam; }
+
+    
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Boum");
         Ball ball = other.gameObject.GetComponent<Ball>();
         if (ball != null)
         {
-            TargetCollected?.Invoke(ball.CurrentTeam, _team.CurrentTeam);
+            TargetCollected?.Invoke(ball.CurrentTeam, gameObject);
             Destroy(gameObject);
         }
     }
@@ -29,8 +30,13 @@ public class Target : MonoBehaviour
         Ball ball = collision.gameObject.GetComponent<Ball>();
         if (ball != null)
         {
-            TargetCollected?.Invoke(ball.CurrentTeam, _team.CurrentTeam);
+            TargetCollected?.Invoke(ball.CurrentTeam, gameObject);
             Destroy(gameObject);
         }
+    }
+
+    public void SetTeam(TeamData dataTeam)
+    {
+        _team = dataTeam;
     }
 }
