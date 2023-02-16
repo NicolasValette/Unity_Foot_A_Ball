@@ -9,14 +9,16 @@ public class MatchManager : MonoBehaviour
     private GameObject _player;
 
     [SerializeField]
-    private TeamData _team1;
+    private TeamData _playerTeam;
     [SerializeField]
-    private TeamData _team2;
+    private TeamData _oponnentTeam;
     public static MatchManager Instance;
 
     private int _team1Number;
     private int _team2Number;
     public static GameObject Player { get => Instance._player; }
+    public static TeamData PlayerTeam {  get => Instance._playerTeam; }
+    public static TeamData OpponentTeam { get => Instance._oponnentTeam; }
 
 
     private void Awake()
@@ -30,8 +32,8 @@ public class MatchManager : MonoBehaviour
     }
     private void Start()
     {
-        _team1Number = _team1.NumberOfPlayer;
-        _team2Number = _team2.NumberOfPlayer;
+        _team1Number = _playerTeam.NumberOfPlayer;
+        _team2Number = _oponnentTeam.NumberOfPlayer;
     }
     private void OnEnable()
     {

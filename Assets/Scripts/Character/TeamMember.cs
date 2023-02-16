@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class TeamMember : Target
 {
-    public static event Action<GameObject> PlayerDead;
+    public static event Action PlayerDead;
     public bool IsTargeted { get; set; }
 
     private void OnDestroy()
     {
         if (IsTargeted)
         {
-            PlayerDead?.Invoke(gameObject);
+            PlayerDead?.Invoke();
         }
     }
+
 }

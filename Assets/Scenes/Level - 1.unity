@@ -633,7 +633,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _team: {fileID: 11400000, guid: 20c66d7e330633847b449f87fc685aea, type: 2}
   _characterData: {fileID: 11400000, guid: 13f12dc029a91ec4191ab26f71925211, type: 2}
-  _waitTime: 3
 --- !u!1 &624843368 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 607843740659601084, guid: bfeb41ea61d0b7e46b98520d3b8675ca, type: 3}
@@ -1427,8 +1426,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 919132148606764660}
-  _team1: {fileID: 11400000, guid: 805a875dddebf4c44a940305312618b2, type: 2}
-  _team2: {fileID: 11400000, guid: 20c66d7e330633847b449f87fc685aea, type: 2}
+  _playerTeam: {fileID: 11400000, guid: 805a875dddebf4c44a940305312618b2, type: 2}
+  _oponnentTeam: {fileID: 11400000, guid: 20c66d7e330633847b449f87fc685aea, type: 2}
 --- !u!1 &1189762167 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 607843740659601084, guid: bfeb41ea61d0b7e46b98520d3b8675ca, type: 3}

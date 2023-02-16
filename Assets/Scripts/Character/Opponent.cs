@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class Opponent : Ball
 {
-    [SerializeField]
-    private float _waitTime;
-
     private bool _isChoosing = false;
-
+    private bool _newTargetAvailable;
     private Vector3 direction;
-    private GameObject targetToTrack;
+    private GameObject targetToTrack = null;
    // private Dictionary<PlayerData.Behavior, Action> _moveMethod = new Dictionary<PlayerData.Behavior, Action>();
     private Action[] _moveMethod ;
     void Start()
@@ -21,20 +18,29 @@ public class Opponent : Ball
         _moveMethod[(int)PlayerData.Behavior.ToPlayer] = ToPlayer;
         _moveMethod[(int)PlayerData.Behavior.ToTarget] = ToTarget;
         InitJersey();
+        _newTargetAvailable = true;
     }
 
+    private void OnEnable()
+    {
+        TeamMember.PlayerDead += WaitBeforeChoosingTarget;
+    }
+    private void OnDisable()
+    {
+        TeamMember.PlayerDead -= WaitBeforeChoosingTarget;
+    }
     // Update is called once per frame
     void Update()
     {
         _moveMethod[(int)_characterData.PlayerBehavior]();
     }
-    public IEnumerator WaitBeforeNewForce()
+    public IEnumerator WaitBeforeDoingSomething(float delay, Action action)
     {
-        yield return new WaitForSeconds(_waitTime);
-        _isChoosing = false;
+        yield return new WaitForSeconds(delay);
+        action();
     }
 
-
+    #region Random Behavior
     public void RandomMove()
     {
         Debug.Log("RandomMove");
@@ -45,15 +51,16 @@ public class Opponent : Ball
             direction = new Vector3(dir.x, transform.position.y, dir.z) - transform.position;
             direction.Normalize();
             Debug.Log(direction);
-           
             _isChoosing = true;
-            StartCoroutine(WaitBeforeNewForce());
+            StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _isChoosing = false)) ;
         } 
         _rigidbody.AddForce(_characterData.Speed * Time.deltaTime * direction);
     }
-
+    #endregion
+    #region To Player Behavior
     public void ToPlayer()
     {
+        Debug.Log("ToPlayer");
         if (!_isChoosing)
         {
             direction = MatchManager.Player.transform.position - transform.position;
@@ -61,20 +68,40 @@ public class Opponent : Ball
            // Debug.Log(direction);
             
             _isChoosing = true;
-            StartCoroutine(WaitBeforeNewForce());
+            StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _isChoosing = false));
         }
         _rigidbody.AddForce(_characterData.Speed * Time.deltaTime * direction);
     }
+    #endregion
+    #region To Target Behavior
 
+    public void WaitBeforeChoosingTarget()
+    {
+        Debug.Log("WaitBeforeChoosingTarget");
+        targetToTrack = null;
+        StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _newTargetAvailable = true));
+    }
     private void ChooseTarget()
     {
-        targetToTrack = GetComponentInParent<TeamComposition>()?.GetMember();
+       
+            Debug.Log("ChooseTarget");
+            targetToTrack = GetComponentInParent<TeamComposition>()?.GetMember();
+            if (targetToTrack != null)
+            {
+                targetToTrack.GetComponent<TeamMember>().IsTargeted = true;
+            }   
     }
     public void ToTarget()
     {
-        
-        direction = targetToTrack.transform.position - transform.position;
-        _isChoosing = true;
-        StartCoroutine(WaitBeforeNewForce());
+        Debug.Log("ToTarget : " + _newTargetAvailable);
+
+        if (targetToTrack == null && _newTargetAvailable)
+        {
+            _newTargetAvailable = false;
+            ChooseTarget();
+            direction = targetToTrack.transform.position - transform.position;
+        }
+        _rigidbody.AddForce(_characterData.Speed * Time.deltaTime * direction);
     }
+    #endregion
 }

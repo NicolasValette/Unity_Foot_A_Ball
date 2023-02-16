@@ -29,7 +29,11 @@ public class TeamComposition : MonoBehaviour
     }
     public GameObject GetMember ()
     {
-        return _teamMembers[Random.Range(0, _teamMembers.Count)];
+        if (_teamMembers.Count > 0)
+        {
+            return _teamMembers[Random.Range(0, _teamMembers.Count)];
+        }
+        return null;
     }
 
     public void RemoveMember(Team team, GameObject member)
