@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EndScreen : MonoBehaviour
@@ -10,19 +11,43 @@ public class EndScreen : MonoBehaviour
     private GameObject _team2Prefab;
     [SerializeField]
     private List<Transform> _spawnPos;
+    [SerializeField]
+    private TMP_Text _winText;
+
+    private int _team1Score;
+    private int _team2Score;
     // Start is called before the first frame update
     void Start()
     {
-        GameObject winningMember = MatchManager.WinningTeam == Team.Team1?_team1Prefab:_team2Prefab;
-        for (int i=0;i<_spawnPos.Count;i++)
+        _team1Score = PlayerPrefs.GetInt("Team1");
+        _team2Score = PlayerPrefs.GetInt("Team2");
+        GameObject winningMember = (_team1Score > _team2Score) ? _team1Prefab : _team2Prefab;
+        for (int i = 0; i < _spawnPos.Count; i++)
         {
-            Instantiate(winningMember, _spawnPos[i].position, _spawnPos[i].rotation);
+            if (_team1Score == _team2Score)
+            {
+                Instantiate(i % 2 == 0 ? _team1Prefab : _team2Prefab, _spawnPos[i].position, _spawnPos[i].rotation);
+            }
+            else
+            {
+                Instantiate(winningMember, _spawnPos[i].position, _spawnPos[i].rotation);
+            }
+        }
+        if (_team1Score == _team2Score)
+        {
+            _winText.text = "Draw";
+        }
+        else
+        {
+            _winText.text = (_team1Score > _team2Score) ? "You Win !" : "You Loose !";
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void QuitGame()
     {
-        
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

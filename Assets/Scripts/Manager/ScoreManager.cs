@@ -14,6 +14,9 @@ public class ScoreManager : MonoBehaviour
     private TeamData _team2;
 
     private int[] _scores = new int[2];
+
+   
+
     // Start is called before the first frame update
     void Start()
     {
