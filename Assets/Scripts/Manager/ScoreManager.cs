@@ -35,11 +35,7 @@ public class ScoreManager : MonoBehaviour
         Target.TargetCollected -= UpdateScore;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     public void UpdateScore(Team team, GameObject member)
     {
         if (team == member.GetComponent<Target>().ActualTeam)

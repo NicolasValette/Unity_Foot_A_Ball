@@ -5,7 +5,8 @@ using UnityEngine;
 public enum Team
 {
     Team1,
-    Team2
+    Team2,
+    None
 }
 [CreateAssetMenu(menuName ="Data/New Team")]
 public class TeamData : ScriptableObject

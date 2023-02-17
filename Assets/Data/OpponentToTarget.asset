@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: OpponentToTarget
   m_EditorClassIdentifier: 
   _behavior: 3
-  _speed: 200
+  _speed: 5
+  _waitingTimeBetweenForce: 2
+  _waitingTimeBetweenTarget: 2

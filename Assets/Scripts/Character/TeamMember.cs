@@ -12,6 +12,7 @@ public class TeamMember : Target
     {
         if (IsTargeted)
         {
+            Debug.Log("Player Dead");
             PlayerDead?.Invoke();
         }
     }

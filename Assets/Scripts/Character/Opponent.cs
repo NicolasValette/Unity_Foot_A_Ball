@@ -17,8 +17,10 @@ public class Opponent : Ball
         _moveMethod[(int)PlayerData.Behavior.Random] = RandomMove;
         _moveMethod[(int)PlayerData.Behavior.ToPlayer] = ToPlayer;
         _moveMethod[(int)PlayerData.Behavior.ToTarget] = ToTarget;
+        _characterData = MatchManager.OppenentData;
         InitJersey();
-        _newTargetAvailable = true;
+        WaitBeforeChoosingTarget();
+        
     }
 
     private void OnEnable()
@@ -30,31 +32,35 @@ public class Opponent : Ball
         TeamMember.PlayerDead -= WaitBeforeChoosingTarget;
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         _moveMethod[(int)_characterData.PlayerBehavior]();
+
+        Debug.DrawLine(transform.position, direction, Color.red);
     }
     public IEnumerator WaitBeforeDoingSomething(float delay, Action action)
     {
+        Debug.Log("###WaitBeforeDoing, delay : " + delay + "Time : " + Time.time + "New target : " + _newTargetAvailable);
         yield return new WaitForSeconds(delay);
         action();
+        Debug.Log("###END WaitBeforeDoing, delay : " + delay + "Time : " + Time.time + "New target : " + _newTargetAvailable);
     }
 
     #region Random Behavior
     public void RandomMove()
-    {
-        Debug.Log("RandomMove");
+    {  
         if (!_isChoosing)
         {
-            _rigidbody.velocity = Vector3.zero;
+            Debug.Log("RandomMove");
             Vector3 dir = UnityEngine.Random.onUnitSphere;
-            direction = new Vector3(dir.x, transform.position.y, dir.z) - transform.position;
+            direction = new Vector3 (dir.x, 0f, dir.z) ;
             direction.Normalize();
             Debug.Log(direction);
             _isChoosing = true;
             StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _isChoosing = false));
+      
+        _rigidbody.AddForce(_characterData.Speed * Time.fixedDeltaTime * direction, ForceMode.Impulse);
         }
-        _rigidbody.AddForce(_characterData.Speed * Time.deltaTime * direction);
     }
     #endregion
     #region To Player Behavior
@@ -68,9 +74,11 @@ public class Opponent : Ball
             // Debug.Log(direction);
 
             _isChoosing = true;
-            StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _isChoosing = false));
+            StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _isChoosing = false)); 
+           
+        _rigidbody.AddForce(_characterData.Speed * Time.fixedDeltaTime * direction, ForceMode.Impulse);
         }
-        _rigidbody.AddForce(_characterData.Speed * Time.deltaTime * direction);
+       
     }
     #endregion
     #region To Target Behavior
@@ -79,27 +87,35 @@ public class Opponent : Ball
     {
         Debug.Log("WaitBeforeChoosingTarget");
         targetToTrack = null;
-        StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _newTargetAvailable = true));
+        StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenTarget, () => _newTargetAvailable = true));
     }
     private void ChooseTarget()
     {
         Debug.Log("ChooseTarget");
-        targetToTrack = GetComponentInParent<TeamComposition>()?.GetMember();
+        targetToTrack = MatchManager.PlayerTeamComposition.GetComponent<TeamComposition>()?.GetMember();
         if (targetToTrack != null)
         {
+            Debug.Log("New Target name : " + targetToTrack.name);
             targetToTrack.GetComponent<TeamMember>().IsTargeted = true;
         }
     }
     public void ToTarget()
     {
-        Debug.Log("ToTarget : " + _newTargetAvailable);
+       
         if (targetToTrack == null && _newTargetAvailable)
-        {
+        { 
+            Debug.Log("ToTarget : " + _newTargetAvailable);
             _newTargetAvailable = false;
             ChooseTarget();
-            direction = targetToTrack.transform.position - transform.position;
+            
         }
-        _rigidbody.AddForce(_characterData.Speed * Time.deltaTime * direction);
+        
+        if (targetToTrack != null)
+        {
+            direction = targetToTrack.transform.position - transform.position;
+            _rigidbody.AddForce(_characterData.Speed * Time.fixedDeltaTime * direction, ForceMode.Impulse);
+        }
+        
     }
     #endregion
 }

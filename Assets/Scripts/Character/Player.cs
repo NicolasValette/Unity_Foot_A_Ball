@@ -2,28 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 using UnityEngine.InputSystem;
-using Newtonsoft.Json.Linq;
+using System;
 
 public class Player : Ball
 {
-    
+
     private int ScoreValue = 0;
-    [SerializeField] 
+    [SerializeField]
     private TMP_Text _scoreText;
-   
-    [SerializeField] 
+
+    [SerializeField]
     private ScenarioData _scenario;
-    [SerializeField] 
+    [SerializeField]
     private GameObject _wallPrefab;
+    [SerializeField]
+    private PlayerData _humanBehaviour;
 
     private Vector2 _inputDirection;
 
-    PlayerInput p;
+
+    public static event Action GamePaused;
     void Start()
     {
+        _characterData = _humanBehaviour;
         InitJersey();
     }
 
@@ -36,5 +38,11 @@ public class Player : Ball
     public void OnMove(InputValue value)
     {
         _inputDirection = value.Get<Vector2>();
+    }
+
+    private void OnPause()
+    {
+        Debug.Log("OnPause");   
+        GamePaused?.Invoke();
     }
 }

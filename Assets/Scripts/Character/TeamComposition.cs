@@ -38,7 +38,7 @@ public class TeamComposition : MonoBehaviour
 
     public void RemoveMember(Team team, GameObject member)
     {
-        if (team == _team.CurrentTeam)
+        if (member.GetComponent<TeamMember>().ActualTeam == _team.CurrentTeam)
         {
             _teamMembers.Remove(member);
         }

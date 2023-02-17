@@ -6,7 +6,6 @@ public abstract class Ball : MonoBehaviour
 {
     [SerializeField]
     protected TeamData _team;
-    [SerializeField]
     protected PlayerData _characterData;
     protected Rigidbody _rigidbody;
     public Team CurrentTeam { get => _team.CurrentTeam; }
@@ -17,6 +16,7 @@ public abstract class Ball : MonoBehaviour
         Material teamMat = _team.TeamMaterial;
         GetComponentInChildren<MeshRenderer>().material = teamMat;
         _rigidbody = GetComponent<Rigidbody>();
+       
     }
     
   
