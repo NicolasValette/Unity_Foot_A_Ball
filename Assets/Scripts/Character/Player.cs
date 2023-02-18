@@ -31,8 +31,12 @@ public class Player : Ball
 
     void FixedUpdate()
     {
+        float mult = 1f;
+#if UNITY_ANDROID
+        mult = 2f;
+#endif
         Vector3 dir = new Vector3(_inputDirection.x, 0f, _inputDirection.y);
-        _rigidbody.AddForce(dir * _characterData.Speed * Time.fixedDeltaTime);
+        _rigidbody.AddForce(dir * (_characterData.Speed * mult) * Time.fixedDeltaTime);
     }
 
     public void OnMove(InputValue value)

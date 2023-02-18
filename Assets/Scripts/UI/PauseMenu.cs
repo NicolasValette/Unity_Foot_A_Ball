@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -25,13 +26,10 @@ public class PauseMenu : MonoBehaviour
         _pauseMenuUI.SetActive(!_pauseMenuUI.activeInHierarchy);
         _isPaused = !_isPaused;
     }
-    public void QuitGame()
+    public void ReturnToMainScreen()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        Time.timeScale = 1f;
+        MatchManager.SwitchScene?.Invoke(0);
     }
 
 }

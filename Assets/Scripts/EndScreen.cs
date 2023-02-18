@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndScreen : MonoBehaviour
 {
@@ -42,12 +43,8 @@ public class EndScreen : MonoBehaviour
             _winText.text = (_team1Score > _team2Score) ? "You Win !" : "You Loose !";
         }
     }
-    public void QuitGame()
+    public void ReturnToMainScreen()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        MatchManager.SwitchScene?.Invoke(0);
     }
 }
