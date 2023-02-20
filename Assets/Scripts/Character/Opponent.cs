@@ -114,8 +114,7 @@ public class Opponent : Ball
         {
             direction = targetToTrack.transform.position - transform.position;
             _rigidbody.AddForce(_characterData.Speed * Time.fixedDeltaTime * direction, ForceMode.Impulse);
-        }
-        
+        }   
     }
     #endregion
 }

@@ -11,7 +11,15 @@ public class StartMenu : MonoBehaviour
     [SerializeField]
     private TMP_Text _sliderText;
     [SerializeField]
-    private Slider _slider;
+    private Slider _matchSlider;
+    [SerializeField]
+    private Slider _masterSlider;
+    [SerializeField]
+    private Slider _musicSlider;
+    [SerializeField]
+    private AudioPlayer _player;
+    [SerializeField]
+    private GameObject _settingsMenu;
 
 
     // Start is called before the first frame update
@@ -20,7 +28,15 @@ public class StartMenu : MonoBehaviour
     {
         PlayerPrefs.SetInt("Team1", 0);
         PlayerPrefs.SetInt("Team2", 0);
-        _sliderText.text = _slider.value.ToString();
+        _sliderText.text = _matchSlider.value.ToString();
+
+        //Set volume settings
+        float masterVolume = PlayerPrefs.GetFloat("MasterVolume");
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        _player.SetVolume(AudioPlayer.MixerGroup.Music, musicVolume);
+        _player.SetVolume(AudioPlayer.MixerGroup.Master, masterVolume);
+        _musicSlider.value = musicVolume;
+        _masterSlider.value = masterVolume;
     }
 
     // Update is called once per frame
@@ -37,7 +53,7 @@ public class StartMenu : MonoBehaviour
         Debug.Log("Menu");
         
  //       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        MatchManager.HalfTimeNumber= (int)_slider.value;
+        MatchManager.HalfTimeNumber= (int)_matchSlider.value;
         MatchManager.SwitchScene?.Invoke(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -65,9 +81,20 @@ public class StartMenu : MonoBehaviour
         Application.Quit();
 #endif
     }
-
     public void HalftTime()
     {
-        _sliderText.text = _slider.value.ToString();
+        _sliderText.text = _matchSlider.value.ToString();
+    }
+    public void SetMusicVolume()
+    {
+        _player.SetVolume(AudioPlayer.MixerGroup.Music, _musicSlider.value);
+    }
+    public void SetMasterVolume()
+    {
+        _player.SetVolume(AudioPlayer.MixerGroup.Master, _masterSlider.value);
+    }
+    public void SettingsMenu()
+    {
+        _settingsMenu.SetActive(!_settingsMenu.activeInHierarchy);
     }
 }

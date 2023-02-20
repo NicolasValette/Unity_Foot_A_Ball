@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-
+    [SerializeField]
+    private int _value;
     public TeamData _team;
 
     public static event Action<Team, GameObject> TargetCollected;
@@ -15,7 +16,6 @@ public class Target : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Boum");
         Ball ball = other.gameObject.GetComponent<Ball>();
         if (ball != null)
         {
@@ -26,7 +26,6 @@ public class Target : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Bim");
         Ball ball = collision.gameObject.GetComponent<Ball>();
         if (ball != null)
         {
