@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,10 @@ public abstract class Ball : MonoBehaviour
     protected TeamData _team;
     protected PlayerData _characterData;
     protected Rigidbody _rigidbody;
+
+    protected bool _isHuman = false;
+
+    public event Action<bool, Area> EnterNewArea;
     public Team CurrentTeam { get => _team.CurrentTeam; }
  
 
@@ -18,6 +23,15 @@ public abstract class Ball : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
        
     }
-    
-  
+
+    private void OnTriggerEnter(Collider other)
+    {
+        FieldArea fieldArea = other.GetComponent<FieldArea>();
+        if (fieldArea != null)              // we enter in new field area
+        {
+            EnterNewArea?.Invoke(_isHuman, fieldArea.Zone);
+        }
+    }
+
+
 }

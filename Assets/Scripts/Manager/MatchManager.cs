@@ -8,6 +8,12 @@ public class MatchManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject _player;
+    [SerializeField]
+    private GameObject _opponent;
+    [SerializeField]
+    private Ejection _ejection;
+    [SerializeField]
+    private FieldManager _fieldManager;
     [Header("Datas")]
     [SerializeField]
     private TeamData _playerTeam;
@@ -28,12 +34,14 @@ public class MatchManager : MonoBehaviour
     private int _team2Number;
     public static int HalfTimeNumber { get; set; }
     public static GameObject Player { get => Instance._player; }
+    public static GameObject Opponent { get => Instance._opponent; }
     public static TeamData PlayerTeam {  get => Instance._playerTeam; }
     public static TeamData OpponentTeam { get => Instance._oponnentTeam; }
     public static PlayerData OppenentData { get => Instance._behaviourList.OpponentData; }
     public static GameObject PlayerTeamComposition { get => Instance._playerTeamComposition; }
     public static GameObject OpponentTeamComposition { get => Instance._oponnentTeamComposition; }
-
+    public static FieldManager FieldMangr {  get => Instance._fieldManager; }
+    public static Ejection Eject { get => Instance._ejection; }
     #region Events
     public static Action<int> SwitchScene;
     #endregion
@@ -50,8 +58,8 @@ public class MatchManager : MonoBehaviour
     }
     private void Start()
     {
-        _team1Number = _playerTeam.NumberOfPlayer;
-        _team2Number = _oponnentTeam.NumberOfPlayer;
+        _team1Number = _oponnentTeam.NumberOfPlayer;
+        _team2Number = _playerTeam.NumberOfPlayer;
         Debug.Log("Difficulty = " + _behaviourList.ToString());
     }
     private void OnEnable()
@@ -74,7 +82,7 @@ public class MatchManager : MonoBehaviour
         {
             _team2Number--;
         }
-        Debug.Log("Score team1 : " + _team1Number + " Score Team2 : " + _team2Number);
+        //Debug.Log("Score team1 : " + _team1Number + " Score Team2 : " + _team2Number);
         if (_team1Number <= 0 || _team2Number <=0)
         {
            NextMatch();

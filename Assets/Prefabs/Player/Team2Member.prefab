@@ -89,7 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b019577a61dcf154ea3ff1bc663c0b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: 0
   _team: {fileID: 11400000, guid: 20c66d7e330633847b449f87fc685aea, type: 2}
   _goal: {fileID: 0}
 --- !u!136 &2098031603262563296

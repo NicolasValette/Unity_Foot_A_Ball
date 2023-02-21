@@ -55,7 +55,7 @@ public class Opponent : Ball
             Vector3 dir = UnityEngine.Random.onUnitSphere;
             direction = new Vector3 (dir.x, 0f, dir.z) ;
             direction.Normalize();
-            Debug.Log(direction);
+      //     Debug.Log(direction);
             _isChoosing = true;
             StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenForce, () => _isChoosing = false));
       

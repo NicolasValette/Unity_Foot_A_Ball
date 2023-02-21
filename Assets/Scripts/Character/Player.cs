@@ -26,6 +26,7 @@ public class Player : Ball
     void Start()
     {
         _characterData = _humanBehaviour;
+        _isHuman = true;
         InitJersey();
     }
 
@@ -37,7 +38,7 @@ public class Player : Ball
 #endif
         Vector3 dir = new Vector3(_inputDirection.x, 0f, _inputDirection.y);
         _rigidbody.AddForce(dir * (_characterData.Speed * mult) * Time.fixedDeltaTime);
-        Debug.Log("Rotation : " + Input.gyro.attitude);
+        //Debug.Log("Rotation : " + Input.gyro.attitude);
     }
 
     public void OnMove(InputValue value)
@@ -49,5 +50,13 @@ public class Player : Ball
     {
         Debug.Log("OnPause");   
         GamePaused?.Invoke();
+    }
+    public void OnSwipe(InputValue inputValue)
+    {
+        //Debug.Log("OnSwipe : " + inputValue.Get<Vector2>());
+    }
+    public void OnStartSwipe(InputValue inputValue)
+    {
+        //Debug.Log("OnStartSwipe : " + inputValue.Get<Vector2>());
     }
 }

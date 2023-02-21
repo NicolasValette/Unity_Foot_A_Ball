@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,14 @@ public class TeamMember : Target
     {
         _agent = GetComponent<NavMeshAgent>();
         _agent.destination = _goal.position;
+        if (ActualTeam == Team.Team1)
+        {
+            MatchManager.Player.GetComponent<Player>().EnterNewArea += ChangeTarget;
+        }
+        else
+        {
+            MatchManager.Opponent.GetComponent<Opponent>().EnterNewArea += ChangeTarget;
+        }
     }
     private void OnDestroy()
     {
@@ -29,5 +38,9 @@ public class TeamMember : Target
     {
         _agent.destination = _goal.position;
     }
-
+    public void ChangeTarget(bool isHuman, Area area)
+    {
+        Debug.Log("Event Change Target, human : " + area);
+        _goal = MatchManager.FieldMangr.GetOppositeArea(area);
+    }
 }
