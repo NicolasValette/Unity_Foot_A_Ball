@@ -37,6 +37,7 @@ public class Player : Ball
 #endif
         Vector3 dir = new Vector3(_inputDirection.x, 0f, _inputDirection.y);
         _rigidbody.AddForce(dir * (_characterData.Speed * mult) * Time.fixedDeltaTime);
+        Debug.Log("Rotation : " + Input.gyro.attitude);
     }
 
     public void OnMove(InputValue value)

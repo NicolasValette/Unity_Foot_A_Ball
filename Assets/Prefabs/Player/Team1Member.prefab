@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 2457027096755564891}
   - component: {fileID: 6582074228431007813}
   - component: {fileID: 2882673983483080563}
+  - component: {fileID: 647510254844670265}
   m_Layer: 0
   m_Name: Team1Member
   m_TagString: Untagged
@@ -431,7 +432,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b019577a61dcf154ea3ff1bc663c0b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _team: {fileID: 11400000, guid: 805a875dddebf4c44a940305312618b2, type: 2}
+  _value: 0
+  _team: {fileID: 0}
+  _goal: {fileID: 0}
 --- !u!136 &2882673983483080563
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -446,6 +449,28 @@ CapsuleCollider:
   m_Height: 2.2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &647510254844670265
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460660516462410959}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.77
+  m_BaseOffset: 1.08
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &3397628399816086578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,7 +1047,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8428482526976479142}
   - component: {fileID: 8428482526976479066}
-  - component: {fileID: 8428482526976479140}
   - component: {fileID: 8428482526976479141}
   m_Layer: 0
   m_Name: Name
@@ -1093,14 +1117,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &8428482526976479140
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8428482526976479143}
-  m_CullTransparentMesh: 0
 --- !u!114 &8428482526976479141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1399,7 +1415,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8428482527654070142}
   - component: {fileID: 8428482527654070130}
-  - component: {fileID: 8428482527654070140}
   - component: {fileID: 8428482527654070141}
   m_Layer: 0
   m_Name: Number
@@ -1470,14 +1485,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &8428482527654070140
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8428482527654070143}
-  m_CullTransparentMesh: 0
 --- !u!114 &8428482527654070141
 MonoBehaviour:
   m_ObjectHideFlags: 0

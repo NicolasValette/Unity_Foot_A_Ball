@@ -40,10 +40,10 @@ public class Opponent : Ball
     }
     public IEnumerator WaitBeforeDoingSomething(float delay, Action action)
     {
-        Debug.Log("###WaitBeforeDoing, delay : " + delay + "Time : " + Time.time + "New target : " + _newTargetAvailable);
+        //Debug.Log("###WaitBeforeDoing, delay : " + delay + "Time : " + Time.time + "New target : " + _newTargetAvailable);
         yield return new WaitForSeconds(delay);
         action();
-        Debug.Log("###END WaitBeforeDoing, delay : " + delay + "Time : " + Time.time + "New target : " + _newTargetAvailable);
+        //Debug.Log("###END WaitBeforeDoing, delay : " + delay + "Time : " + Time.time + "New target : " + _newTargetAvailable);
     }
 
     #region Random Behavior
@@ -51,7 +51,7 @@ public class Opponent : Ball
     {  
         if (!_isChoosing)
         {
-            Debug.Log("RandomMove");
+            //Debug.Log("RandomMove");
             Vector3 dir = UnityEngine.Random.onUnitSphere;
             direction = new Vector3 (dir.x, 0f, dir.z) ;
             direction.Normalize();
@@ -66,7 +66,7 @@ public class Opponent : Ball
     #region To Player Behavior
     public void ToPlayer()
     {
-        Debug.Log("ToPlayer");
+        //Debug.Log("ToPlayer");
         if (!_isChoosing)
         {
             direction = MatchManager.Player.transform.position - transform.position;
@@ -85,17 +85,17 @@ public class Opponent : Ball
 
     public void WaitBeforeChoosingTarget()
     {
-        Debug.Log("WaitBeforeChoosingTarget");
+        //Debug.Log("WaitBeforeChoosingTarget");
         targetToTrack = null;
         StartCoroutine(WaitBeforeDoingSomething(_characterData.WaitingTimeBetweenTarget, () => _newTargetAvailable = true));
     }
     private void ChooseTarget()
     {
-        Debug.Log("ChooseTarget");
+      //  Debug.Log("ChooseTarget");
         targetToTrack = MatchManager.PlayerTeamComposition.GetComponent<TeamComposition>()?.GetMember();
         if (targetToTrack != null)
         {
-            Debug.Log("New Target name : " + targetToTrack.name);
+            //Debug.Log("New Target name : " + targetToTrack.name);
             targetToTrack.GetComponent<TeamMember>().IsTargeted = true;
         }
     }
@@ -104,7 +104,7 @@ public class Opponent : Ball
        
         if (targetToTrack == null && _newTargetAvailable)
         { 
-            Debug.Log("ToTarget : " + _newTargetAvailable);
+            //Debug.Log("ToTarget : " + _newTargetAvailable);
             _newTargetAvailable = false;
             ChooseTarget();
             
