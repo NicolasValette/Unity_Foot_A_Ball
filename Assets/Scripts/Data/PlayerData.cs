@@ -22,7 +22,8 @@ public class PlayerData : ScriptableObject
     private float _waitingTimeBetweenForce = 3f;
     [SerializeField]
     private float _waitingTimeBetweenTarget = 1f;
-
+    [SerializeField]
+    private float _waitingBeforeNewTarget;
 
 
     public Behavior PlayerBehavior { get => _behavior;} 

@@ -16,7 +16,25 @@ public class TeamComposition : MonoBehaviour
     {
         for (int i=0; i<TeamMembers.Count; i++)
         {
+            Area area = Area.Area1;
             TeamMembers[i].GetComponent<Target>()?.SetTeam(_team);
+            if (i%4 == 0)
+            {
+                area = Area.Area1;
+            }
+            else if (i % 4 == 1)
+            {
+                area = Area.Area2;
+            }
+            else if (i % 4 == 2)
+            {
+                area = Area.Area3;
+            }
+            else if (i % 4 == 3)
+            {
+                area = Area.Area4;
+            }
+            TeamMembers[i].GetComponent<TeamMember>()?.ChangeTarget(false, area);
         }
     }
     private void OnEnable()

@@ -26,10 +26,12 @@ public class Opponent : Ball
     private void OnEnable()
     {
         TeamMember.PlayerDead += WaitBeforeChoosingTarget;
+        Target.TargetCollected += WaitBeforeChoosingTarget;
     }
     private void OnDisable()
     {
         TeamMember.PlayerDead -= WaitBeforeChoosingTarget;
+        Target.TargetCollected -= WaitBeforeChoosingTarget;
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -83,6 +85,10 @@ public class Opponent : Ball
     #endregion
     #region To Target Behavior
 
+    public void WaitBeforeChoosingTarget(Team team, GameObject go)
+    {
+        WaitBeforeChoosingTarget();
+    }
     public void WaitBeforeChoosingTarget()
     {
         //Debug.Log("WaitBeforeChoosingTarget");
@@ -107,7 +113,6 @@ public class Opponent : Ball
             //Debug.Log("ToTarget : " + _newTargetAvailable);
             _newTargetAvailable = false;
             ChooseTarget();
-            
         }
         
         if (targetToTrack != null)

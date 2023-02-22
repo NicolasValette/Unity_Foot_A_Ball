@@ -7,6 +7,7 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     public TeamData _team;
+    protected ContactPoint _point;
 
     public static event Action<Team, GameObject> TargetCollected;
     public Team ActualTeam { get => _team.CurrentTeam; }
@@ -28,13 +29,18 @@ public class Target : MonoBehaviour
         Ball ball = collision.gameObject.GetComponent<Ball>();
         if (ball != null)
         {
+            //Score
             TargetCollected?.Invoke(ball.CurrentTeam, gameObject);
-            Vector3 dir = MatchManager.Eject.GetRandomEjectionPos() - transform.position;
             
+            
+            _point = collision.GetContact(0);
+            Vector3 dir = transform.position - _point.point;
+            dir = new Vector3(dir.x, 0f, dir.z);
+            dir.Normalize();
             dir *= MatchManager.Eject.SpeedEjection;
-                Debug.Log("Dir : " + dir);
+            Debug.Log("Dir : " + dir);
             GetComponent<Rigidbody>().AddForce(dir, ForceMode.Impulse);
-            Destroy(gameObject, 1f);
+           // Destroy(gameObject, 1f);
         }
     }
     public void SetTeam(TeamData dataTeam)

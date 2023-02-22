@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _behavior: 3
   _speed: 5
-  _waitingTimeBetweenForce: 2
-  _waitingTimeBetweenTarget: 2
+  _waitingTimeBetweenForce: 1
+  _waitingTimeBetweenTarget: 1

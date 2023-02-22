@@ -83,10 +83,13 @@ public class MatchManager : MonoBehaviour
             _team2Number--;
         }
         //Debug.Log("Score team1 : " + _team1Number + " Score Team2 : " + _team2Number);
-        if (_team1Number <= 0 || _team2Number <=0)
-        {
-           NextMatch();
-        }
+
+        //FIN DU MATCH
+
+        //if (_team1Number <= 0 || _team2Number <=0)
+        //{
+        //   NextMatch();
+        //}
     }
 
     private void NextMatch()

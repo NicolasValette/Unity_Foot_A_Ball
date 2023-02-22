@@ -7,7 +7,6 @@ using UnityEngine.AI;
 
 public class TeamMember : Target
 {
-    [SerializeField]
     private Transform _goal;
     public static event Action PlayerDead;
     public bool IsTargeted { get; set; }
@@ -34,13 +33,35 @@ public class TeamMember : Target
             PlayerDead?.Invoke();
         }
     }
+    private void OnDisable()
+    {
+        if (ActualTeam == Team.Team1)
+        {
+            MatchManager.Player.GetComponent<Player>().EnterNewArea -= ChangeTarget;
+        }
+        else
+        {
+            MatchManager.Opponent.GetComponent<Opponent>().EnterNewArea -= ChangeTarget;
+        }
+    }
     private void Update()
     {
-        _agent.destination = _goal.position;
+        //_agent.destination = _goal.position;
+        _agent.SetDestination(_goal.position);
+        //_agent.speed = 3.5f;
+        
+        Debug.DrawLine(transform.position, _agent.destination, Color.magenta);
     }
     public void ChangeTarget(bool isHuman, Area area)
     {
         Debug.Log("Event Change Target, human : " + area);
         _goal = MatchManager.FieldMangr.GetOppositeArea(area);
+        //StartCoroutine(StopVelocity());
     }
+
+    //public IEnumerator StopVelocity ()
+    //{
+    //    yield return new WaitForSeconds(2f);
+    //    GetComponent<Rigidbody>().velocity = Vector3.zero;
+    //}
 }
