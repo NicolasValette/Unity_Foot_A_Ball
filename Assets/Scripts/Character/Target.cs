@@ -39,6 +39,19 @@ public class Target : MonoBehaviour
             dir.Normalize();
             dir *= MatchManager.Eject.SpeedEjection;
             Debug.Log("Dir : " + dir);
+
+            //Rigidbody rb = GetComponent<Rigidbody>();
+
+            //_rb.isKinematic = false;
+            //_agent.enabled = false;
+            //_rb.AddForce(-transform.forward * 10, ForceMode.Impulse);
+            ////.....
+            //if (_rb.velocity.magnitude <= 0.1f)
+            //{
+            //    _rb.isKinematic = true;
+            //    _agent.enabled = true;
+            //}
+
             GetComponent<Rigidbody>().AddForce(dir, ForceMode.Impulse);
            // Destroy(gameObject, 1f);
         }

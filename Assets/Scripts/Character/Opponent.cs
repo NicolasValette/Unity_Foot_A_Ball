@@ -114,7 +114,6 @@ public class Opponent : Ball
             _newTargetAvailable = false;
             ChooseTarget();
         }
-        
         if (targetToTrack != null)
         {
             direction = targetToTrack.transform.position - transform.position;
